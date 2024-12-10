@@ -7,7 +7,7 @@ const infoContainer = document.getElementById("info-container");
 const generateBarsButton = document.getElementById("generate-bars-button");
 const selectionSortButton = document.getElementById("selection-sort-button");
 const insertionSortButton = document.getElementById("insertion-sort-button");
-
+const bubbleSortButton = document.getElementById("bubble-sort-button");
 
 function generateBars() {
   const array = Array(30).fill().map(() => Math.floor(Math.random() * 500));
@@ -114,8 +114,6 @@ async function insertionSort() {
   //start at second index in array and go back looking for spot to swap
   for (let i = 1; i < bars.length; i++) {
 
-  
-
     barsContainer.children[i].style.backgroundColor = "red";
     for (let l = i-1; l >= 0; l--) {
       barsContainer.children[l].style.backgroundColor = "lightgreen";
@@ -154,7 +152,55 @@ async function insertionSort() {
 
 function insertionSortInfo() {  }
 
+
+
+async function bubbleSort() {
+  for (let i = 0; i < bars.length; i++) {
+
+    for(let j = 1; j < bars.length - i; j++) {
+
+      renderBars();
+      barsContainer.children[j].style.backgroundColor = "red";
+      barsContainer.children[j-1].style.backgroundColor = "red";
+
+      //make everything i inexes past end of array green
+      for (let l = bars.length - 1; l >= bars.length - i; l--) {
+        barsContainer.children[l].style.backgroundColor = "lightgreen";
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 50));
+
+      console.log(bars[j]);
+      if (bars[j-1] > bars[j]) {
+        const temp = bars[j];
+        bars[j] = bars[j - 1];
+        bars[j - 1] = temp;
+      }
+
+      renderBars();
+      barsContainer.children[j].style.backgroundColor = "red";
+      barsContainer.children[j - 1].style.backgroundColor = "red";
+
+      //make everything i inexes past end of array green
+      for (let l = bars.length - 1; l >= bars.length - i; l--) {
+        barsContainer.children[l].style.backgroundColor = "lightgreen";
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 50));
+    }
+
+
+  
+  }
+  console.log(bars);
+
+ 
+}
+
+function bubbleSortInfo() {  }
+
 //event listeners
 generateBarsButton.addEventListener("click", () => {renderBars()});
 selectionSortButton.addEventListener("click", () => {selectionSort(), selectionSortInfo() });
 insertionSortButton.addEventListener("click", () => {insertionSort(), insertionSortInfo()});
+bubbleSortButton.addEventListener("click", () => {bubbleSort(), bubbleSortInfo()});
