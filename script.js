@@ -8,6 +8,7 @@ const generateBarsButton = document.getElementById("generate-bars-button");
 const selectionSortButton = document.getElementById("selection-sort-button");
 const insertionSortButton = document.getElementById("insertion-sort-button");
 const bubbleSortButton = document.getElementById("bubble-sort-button");
+const mergeSortButton = document.getElementById("merge-sort-button");
 
 function generateBars() {
   const array = Array(30).fill().map(() => Math.floor(Math.random() * 500));
@@ -199,8 +200,94 @@ async function bubbleSort() {
 
 function bubbleSortInfo() {  }
 
+//NEED TO FIX
+//----------------------------------------------------------------------------------
+async function mergeSort(arr, start = 0, end = arr.length - 1) {
+  if (start >= end) {
+    return;
+  }
+
+  const mid = Math.floor((start + end) / 2);
+
+
+  // Recursively sort left and right halves
+  await mergeSort(arr, start, mid);
+  await mergeSort(arr, mid + 1, end);
+
+  // Merge the sorted halves
+  await merge(arr, start, mid, end);
+
+  await new Promise((resolve) => setTimeout(resolve, 200));
+}
+
+async function merge(arr, start, mid, end) {
+  // Create temporary arrays
+  const leftArr = arr.slice(start, mid + 1);
+  const rightArr = arr.slice(mid + 1, end + 1);
+
+  let i = 0, j = 0, k = start;
+
+
+  // Merge the two arrays
+  while (i < leftArr.length && j < rightArr.length) {
+
+    renderBars();
+    //make all bars from start to end drop down a bit
+    for (let l = start; l <= end; l++) {
+      barsContainer.children[l].style.backgroundColor = "lightgreen";
+      barsContainer.children[l].style.marginBottom = "50px";
+    }
+    await new Promise((resolve) => setTimeout(resolve, 500));
+
+    if (leftArr[i] <= rightArr[j]) {
+      arr[k] = leftArr[i];
+      i++;
+    } else {
+      arr[k] = rightArr[j];
+      j++;
+    }
+
+    k++;
+
+    renderBars();
+    //make all bars from start to end drop down a bit
+    for (let l = start; l <= end; l++) {
+      barsContainer.children[l].style.backgroundColor = "lightgreen";
+      barsContainer.children[l].style.marginTop = "50px";
+      barsContainer.children[l].style.backgroundColor = "lightgreen";
+    }
+  }
+
+
+  while (i < leftArr.length) {
+    arr[k] = leftArr[i];
+
+    i++;
+    k++;
+  }
+
+
+  while (j < rightArr.length) {
+    arr[k] = rightArr[j];
+
+    j++;
+    k++;
+  }
+
+  renderBars();
+}
+
+
+
+
+function mergeSortInfo() {  }
+
+
+//-----------------------------------------------------------------------------------
+
 //event listeners
 generateBarsButton.addEventListener("click", () => {renderBars()});
 selectionSortButton.addEventListener("click", () => {selectionSort(), selectionSortInfo() });
 insertionSortButton.addEventListener("click", () => {insertionSort(), insertionSortInfo()});
 bubbleSortButton.addEventListener("click", () => {bubbleSort(), bubbleSortInfo()});
+mergeSortButton.addEventListener("click", () => {mergeSort(bars), mergeSortInfo()});
