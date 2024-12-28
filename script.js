@@ -1,4 +1,5 @@
 
+
 //container object
 const barsContainer  = document.getElementById("bars-container")
 const infoContainer = document.getElementById("info-container");
@@ -9,13 +10,16 @@ const selectionSortButton = document.getElementById("selection-sort-button");
 const insertionSortButton = document.getElementById("insertion-sort-button");
 const bubbleSortButton = document.getElementById("bubble-sort-button");
 const mergeSortButton = document.getElementById("merge-sort-button");
+const quickSortButton = document.getElementById("quick-sort-button");
+
 
 function generateBars() {
-  const array = Array(30).fill().map(() => Math.floor(Math.random() * 500));
+  const array = Array(20).fill().map(() => Math.floor(Math.random() * 500));
   return array;
 }
 
-const bars = generateBars();
+let bars = generateBars();
+
 
 function renderBars() {
   barsContainer.innerHTML = "";
@@ -23,6 +27,9 @@ function renderBars() {
   bars.forEach((value, index) => {
     console.log(value);
     const bar = document.createElement("div");
+    const valueText = document.createElement("p");
+    valueText.textContent = value;
+    bar.appendChild(valueText);
     bar.style.height = `${value}px`; //set height of bar to value
     barsContainer.appendChild(bar);
   });
@@ -217,7 +224,15 @@ async function mergeSort(arr, start = 0, end = arr.length - 1) {
   // Merge the sorted halves
   await merge(arr, start, mid, end);
 
-  await new Promise((resolve) => setTimeout(resolve, 200));
+  renderBars();
+  // Highlight the sorted section
+  for (let i = start; i <= end; i++) {
+    barsContainer.children[i].style.backgroundColor = "lightgreen";
+  }
+  await new Promise((resolve) => setTimeout(resolve, 500));
+
+ 
+  renderBars();
 }
 
 async function merge(arr, start, mid, end) {
@@ -227,17 +242,8 @@ async function merge(arr, start, mid, end) {
 
   let i = 0, j = 0, k = start;
 
-
   // Merge the two arrays
   while (i < leftArr.length && j < rightArr.length) {
-
-    renderBars();
-    //make all bars from start to end drop down a bit
-    for (let l = start; l <= end; l++) {
-      barsContainer.children[l].style.backgroundColor = "lightgreen";
-      barsContainer.children[l].style.marginBottom = "50px";
-    }
-    await new Promise((resolve) => setTimeout(resolve, 500));
 
     if (leftArr[i] <= rightArr[j]) {
       arr[k] = leftArr[i];
@@ -249,13 +255,17 @@ async function merge(arr, start, mid, end) {
 
     k++;
 
+    // Render the current state of the array
     renderBars();
-    //make all bars from start to end drop down a bit
-    for (let l = start; l <= end; l++) {
-      barsContainer.children[l].style.backgroundColor = "lightgreen";
-      barsContainer.children[l].style.marginTop = "50px";
-      barsContainer.children[l].style.backgroundColor = "lightgreen";
+
+    // Highlight the section being sorted
+    for (let i = start; i <= end; i++) {
+      barsContainer.children[i].style.backgroundColor = "yellow";
     }
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    // Highlight the active elements
+    barsContainer.children[k - 1].style.backgroundColor = "red";
+    await new Promise((resolve) => setTimeout(resolve, 500));
   }
 
 
@@ -264,6 +274,15 @@ async function merge(arr, start, mid, end) {
 
     i++;
     k++;
+
+    renderBars();
+    // Highlight the section being sorted
+    for (let i = start; i <= end; i++) {
+      barsContainer.children[i].style.backgroundColor = "yellow";
+    } 
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    barsContainer.children[k - 1].style.backgroundColor = "red";
+    await new Promise((resolve) => setTimeout(resolve, 500));
   }
 
 
@@ -272,18 +291,68 @@ async function merge(arr, start, mid, end) {
 
     j++;
     k++;
+
+
+    renderBars();
+    // Highlight the section being sorted
+    for (let i = start; i <= end; i++) {
+      barsContainer.children[i].style.backgroundColor = "yellow";
+    }
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    barsContainer.children[k - 1].style.backgroundColor = "red";
+    await new Promise((resolve) => setTimeout(resolve, 500));
   }
 
-  renderBars();
 }
-
-
-
 
 function mergeSortInfo() {  }
 
 
 //-----------------------------------------------------------------------------------
+
+
+async function quickSort(arr, start=0, end = arr.length -1){
+  if(start < end) {
+    renderBars();
+
+    const pivotIndex = partition(arr, start, end);
+    await quickSort(arr, start, pivotIndex - 1);
+    await quickSort(arr, pivotIndex + 1, end);
+
+    renderBars();
+    for (let i = start; i <= end; i++) {
+      barsContainer.children[i].style.backgroundColor = "lightgreen";
+    }
+    await new Promise((resolve) => setTimeout(resolve, 500));
+  }
+   renderBars();
+}
+
+function partition(arr, start, end) {
+  const pivot = arr[end];
+  let i = start - 1;
+
+  for (let j = start ; j < end; j++) {
+    if (arr[j] < pivot) {
+      i++;
+      swap(arr, i, j);
+    }
+  }
+
+  swap(arr, i+1, end);
+
+  return i+1;
+}
+
+function quickSortInfo() {  }
+
+function swap(arr, i, j) {
+  let temp = arr[i];
+  arr[i] = arr[j];
+  arr[j] = temp;
+}
+
+
 
 //event listeners
 generateBarsButton.addEventListener("click", () => {renderBars()});
@@ -291,3 +360,4 @@ selectionSortButton.addEventListener("click", () => {selectionSort(), selectionS
 insertionSortButton.addEventListener("click", () => {insertionSort(), insertionSortInfo()});
 bubbleSortButton.addEventListener("click", () => {bubbleSort(), bubbleSortInfo()});
 mergeSortButton.addEventListener("click", () => {mergeSort(bars), mergeSortInfo()});
+quickSortButton.addEventListener("click", () => {quickSort(bars), quickSortInfo()});
