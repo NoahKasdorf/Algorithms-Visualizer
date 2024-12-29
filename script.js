@@ -11,6 +11,9 @@ const insertionSortButton = document.getElementById("insertion-sort-button");
 const bubbleSortButton = document.getElementById("bubble-sort-button");
 const mergeSortButton = document.getElementById("merge-sort-button");
 const quickSortButton = document.getElementById("quick-sort-button");
+const heapSortButton = document.getElementById("heap-sort-button");
+
+const resetButton = document.getElementById("reset-button");
 
 
 function generateBars() {
@@ -18,10 +21,10 @@ function generateBars() {
   return array;
 }
 
-let bars = generateBars();
 
 
 function renderBars() {
+
   barsContainer.innerHTML = "";
 
   bars.forEach((value, index) => {
@@ -47,10 +50,10 @@ async function selectionSort() {
 
     //re render array to reset colours
     renderBars();
-    barsContainer.children[i].style.backgroundColor = "red";
+    barsContainer.children[i].style.background = "linear-gradient(to top,rgb(255, 137, 153),rgb(110, 0, 0))";
     //also want all sorted bars to be light green
     for (let j = 0; j < i; j++) {
-      barsContainer.children[j].style.backgroundColor = "lightgreen";
+      barsContainer.children[j].style.background = "linear-gradient(to top,rgb(97, 238, 120),rgb(6, 170, 41))";
     }
     await new Promise((resolve) => setTimeout(resolve, 300));
    
@@ -58,20 +61,20 @@ async function selectionSort() {
     //loop through unsorted array
     for (let j = i + 1; j < bars.length; j++) {
 
-      barsContainer.children[j].style.backgroundColor = "yellow";
+      barsContainer.children[j].style.background = "linear-gradient(to top,rgb(239, 248, 118),rgb(89, 95, 2))";
       await new Promise((resolve) => setTimeout(resolve, 200));
-      barsContainer.children[j].style.backgroundColor = "skyblue";
+      barsContainer.children[j].style.background = "linear-gradient(to top, #63eaec, #3c928b)";
 
       if (bars[j] < bars[minIndex]) {
 
         //make sure min index was not first index
         if (minIndex !== i) {
-          barsContainer.children[minIndex].style.backgroundColor = "skyblue";
+          barsContainer.children[minIndex].style.background = "linear-gradient(to top, #63eaec, #3c928b)";
         }
 
         minIndex = j;
 
-        barsContainer.children[minIndex].style.backgroundColor = "green";
+        barsContainer.children[minIndex].style.background = "linear-gradient(to top,rgb(30, 139, 49),rgb(3, 70, 18))";
         await new Promise((resolve) => setTimeout(resolve, 200));
       }
 
@@ -90,32 +93,45 @@ async function selectionSort() {
 
     //also want all sorted bars to be light green
     for (let j = 0; j < i; j++) {
-      barsContainer.children[j].style.backgroundColor = "lightgreen";
+      barsContainer.children[j].style.background = "linear-gradient(to top,rgb(97, 238, 120),rgb(6, 170, 41))";
     }
 
-    barsContainer.children[i].style.backgroundColor = "green";
-    barsContainer.children[minIndex].style.backgroundColor = "red";
+    barsContainer.children[i].style.background = "linear-gradient(to top,rgb(30, 139, 49),rgb(3, 70, 18))";
+    barsContainer.children[minIndex].style.background = "linear-gradient(to top,rgb(255, 137, 153),rgb(110, 0, 0))";
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
-    barsContainer.children[i].style.backgroundColor = "skyblue";
-    barsContainer.children[minIndex].style.backgroundColor = "skyblue";
+    barsContainer.children[i].style.background = "linear-gradient(to top, #63eaec, #3c928b)";
+    barsContainer.children[minIndex].style.background = "linear-gradient(to top, #63eaec, #3c928b)";
 
   }
   console.log(bars);
 }
 
-
-function selectionSortInfo(){
-  infoContainer.innerHTML = ""
+function selectionSortInfo() {
+  infoContainer.innerHTML = "";
 
   const header = document.createElement("h2");
-  header.textContent = "Time Complexity: O(n^2)";
-  const header2 = document.createElement("h2");
-  header2.textContent = "Space Complexity: O(1)";
-  infoContainer.appendChild(header);
-  infoContainer.appendChild(header2);
+  header.textContent = "Selection Sort";
 
+  const timeComplexity = document.createElement("p");
+  timeComplexity.textContent = "Time Complexity: O(n^2) in all cases.";
+
+  const spaceComplexity = document.createElement("p");
+  spaceComplexity.textContent = "Space Complexity: O(1) - In-place sorting.";
+
+  const description = document.createElement("p");
+  description.textContent = "Selection Sort is an in-place comparison-based algorithm. It divides the input array into two parts: the sorted part and the unsorted part. At each iteration, it selects the smallest (or largest) element from the unsorted part and swaps it with the first unsorted element.";
+
+  const useCase = document.createElement("p");
+  useCase.textContent = "Best used for small datasets where memory is limited, as it is simple but inefficient for larger datasets.";
+
+  infoContainer.appendChild(header);
+  infoContainer.appendChild(timeComplexity);
+  infoContainer.appendChild(spaceComplexity);
+  infoContainer.appendChild(description);
+  infoContainer.appendChild(useCase);
 }
+
 
 
 async function insertionSort() {
@@ -158,8 +174,30 @@ async function insertionSort() {
 
 }
 
-function insertionSortInfo() {  }
+function insertionSortInfo() {
+  infoContainer.innerHTML = "";
 
+  const header = document.createElement("h2");
+  header.textContent = "Insertion Sort";
+
+  const timeComplexity = document.createElement("p");
+  timeComplexity.textContent = "Time Complexity: O(n^2) in the worst and average cases, O(n) in the best case (already sorted).";
+
+  const spaceComplexity = document.createElement("p");
+  spaceComplexity.textContent = "Space Complexity: O(1) - In-place sorting.";
+
+  const description = document.createElement("p");
+  description.textContent = "Insertion Sort works similarly to sorting playing cards. It iteratively takes one element and inserts it into its correct position relative to the already sorted part of the array.";
+
+  const useCase = document.createElement("p");
+  useCase.textContent ="Efficient for small datasets or nearly sorted arrays due to its low overhead.";
+
+  infoContainer.appendChild(header);
+  infoContainer.appendChild(timeComplexity);
+  infoContainer.appendChild(spaceComplexity);
+  infoContainer.appendChild(description);
+  infoContainer.appendChild(useCase);
+}
 
 
 async function bubbleSort() {
@@ -205,7 +243,31 @@ async function bubbleSort() {
  
 }
 
-function bubbleSortInfo() {  }
+function bubbleSortInfo() {
+  infoContainer.innerHTML = "";
+
+  const header = document.createElement("h2");
+  header.textContent = "Bubble Sort";
+
+  const timeComplexity = document.createElement("p");
+  timeComplexity.textContent = "Time Complexity: O(n^2) for worst and average cases, O(n) for best case (already sorted).";
+
+  const spaceComplexity = document.createElement("p");
+  spaceComplexity.textContent = "Space Complexity: O(1) - In-place sorting.";
+
+  const description = document.createElement("p");
+  description.textContent = "Bubble Sort repeatedly compares adjacent elements in the array and swaps them if they are in the wrong order. The process continues until the array is fully sorted.";
+
+  const useCase = document.createElement("p");
+  useCase.textContent = "Rarely used in practice due to its inefficiency but is useful for educational purposes.";
+
+  infoContainer.appendChild(header);
+  infoContainer.appendChild(timeComplexity);
+  infoContainer.appendChild(spaceComplexity);
+  infoContainer.appendChild(description);
+  infoContainer.appendChild(useCase);
+}
+
 
 //NEED TO FIX
 //----------------------------------------------------------------------------------
@@ -305,7 +367,30 @@ async function merge(arr, start, mid, end) {
 
 }
 
-function mergeSortInfo() {  }
+function mergeSortInfo() {
+  infoContainer.innerHTML = "";
+
+  const header = document.createElement("h2");
+  header.textContent = "Merge Sort";
+
+  const timeComplexity = document.createElement("p");
+  timeComplexity.textContent = "Time Complexity: O(n log n) in all cases.";
+
+  const spaceComplexity = document.createElement("p");
+  spaceComplexity.textContent = "Space Complexity: O(n) - Requires additional memory for temporary arrays.";
+
+  const description = document.createElement("p");
+  description.textContent = "Merge Sort is a divide-and-conquer algorithm. It divides the array into smaller subarrays, sorts them, and then merges them back together.";
+
+  const useCase = document.createElement("p");
+  useCase.textContent = "Suitable for large datasets where stability is important.";
+
+  infoContainer.appendChild(header);
+  infoContainer.appendChild(timeComplexity);
+  infoContainer.appendChild(spaceComplexity);
+  infoContainer.appendChild(description);
+  infoContainer.appendChild(useCase);
+}
 
 
 //-----------------------------------------------------------------------------------
@@ -344,20 +429,54 @@ function partition(arr, start, end) {
   return i+1;
 }
 
-function quickSortInfo() {  }
-
 function swap(arr, i, j) {
   let temp = arr[i];
   arr[i] = arr[j];
   arr[j] = temp;
 }
 
+function quickSortInfo() {
+  infoContainer.innerHTML = "";
 
+  const header = document.createElement("h2");
+  header.textContent = "Quick Sort";
+
+  const timeComplexity = document.createElement("p");
+  timeComplexity.textContent = "Time Complexity: O(n log n) on average, O(n^2) in the worst case.";
+
+  const spaceComplexity = document.createElement("p");
+  spaceComplexity.textContent = "Space Complexity: O(log n) due to recursive calls (in-place for iterative).";
+
+  const description = document.createElement("p");
+  description.textContent = "Quick Sort uses a pivot element to partition the array into two halves. Elements smaller than the pivot go to the left, and elements larger go to the right. The process is then repeated for each partition.";
+
+  const useCase = document.createElement("p");
+  useCase.textContent = "Often the fastest for large datasets but requires careful pivot selection to avoid worst-case performance.";
+
+  infoContainer.appendChild(header);
+  infoContainer.appendChild(timeComplexity);
+  infoContainer.appendChild(spaceComplexity);
+  infoContainer.appendChild(description);
+  infoContainer.appendChild(useCase);
+}
+
+
+
+
+function heapSort(){
+
+}
+
+function heapSortInfo(){}
 
 //event listeners
-generateBarsButton.addEventListener("click", () => {renderBars()});
+generateBarsButton.addEventListener("click", () => {bars = generateBars(), renderBars()});
 selectionSortButton.addEventListener("click", () => {selectionSort(), selectionSortInfo() });
 insertionSortButton.addEventListener("click", () => {insertionSort(), insertionSortInfo()});
 bubbleSortButton.addEventListener("click", () => {bubbleSort(), bubbleSortInfo()});
 mergeSortButton.addEventListener("click", () => {mergeSort(bars), mergeSortInfo()});
 quickSortButton.addEventListener("click", () => {quickSort(bars), quickSortInfo()});
+heapSortButton.addEventListener("click", () => {heapSort(), heapSortInfo()});
+
+
+resetButton.addEventListener("click", () => {bars = location.reload()}); 

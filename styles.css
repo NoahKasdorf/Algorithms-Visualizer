@@ -1,45 +1,77 @@
 
 #heading {
-    padding: 10px 20px;
-    border-radius: 5px;
-    background-color: black;
+
+    background-color: #293556;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+
+    display: flex;
+    flex-direction: column;
+  
 }
 
 h1 {
     color: white;
+    padding-bottom: 20px;
     text-align: center;
+    font-size: 36px;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    font-weight: 600;
+    text-shadow: 5px 5px 6px rgba(0, 0, 0, 0.5);
 }
 
 #content {
     display: flex;
     flex-direction: row;
+
+    justify-content: space-around;
+    align-items: center;
+    margin: 20px auto;
+    padding: 20px;
 }
 
 
+
 #info-container {
+    background-color: rgba(255, 255, 255, 0.15);
+
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    padding: 20px;
 
 
-    padding-top: 100px;
-    background-color: lightgray;
-    border-radius: 5px;
-    border: 3px solid black;
+    min-width:45%;
+    max-width: 45%;
 
-    width: 50%;
-    margin-left: 20px;
+    min-height: 35vh;
+    max-height: 50%;
+    
+
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 #bars-container {
     display: flex;
-    flex-direction: row;
+    justify-content: space-evenly;
     align-items: flex-end;
 
-    padding-top: 100px;
-    background-color: lightgray;
-    border-radius: 5px;
-    border: 3px solid black;
+    min-width: 45%;
+    max-width: 45%;
 
-    width: 50%;
-    margin-left: 20px;
+    min-height: 35vh;
+    max-height: 50%;
+
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
 }
 
 #bars-container div {
@@ -47,18 +79,51 @@ h1 {
     margin: 2px;
     border-radius: 5px;
     border: 2px solid grey;
-    background-color: skyblue;
+
+    background: linear-gradient(to top, #63eaec, #3c928b);
+
+    transition: all 0.7s ease-in-out;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    color: white;
+}
+
+#bars-container div p {
+    position: absolute;
+    writing-mode: vertical-rl;
+    text-align: center;
+    color: white;
+    font-size: 14px;
+    font-family: monospace;
+    margin: 0;
+    transform: translateY(10px);
+    pointer-events: none;
 }
 
 
 #generate-bars-button {
     display: block;
     margin: 0 auto;
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: 1px solid black;
-    background-color: lightgray;
+    margin-top: 30px;
+    padding: 10px 10px;
+    border-radius: 50px;
+    width: 100px;
+    height: 100px;
+
+    border: 2px solid #607cc9;
+    
+    color: #ffffff;
+    font-size: 14px;
+    font-family: 'monospace';
+
+    background-color: rgb(223, 101, 101);
     cursor: pointer;
+
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+#generate-bars-button:hover {
+    background-color: #d14747;
 }
 
 
@@ -68,17 +133,53 @@ h1 {
     justify-content: center;
     align-items: center;
     padding: 10px 20px;
-    border-radius: 5px;
-    border: 1px solid black;
-    background-color: lightgray;
+    background-color: #3E60C1;
+
+    width: 100%;
+    margin-top: auto;
 }
 
 button {
-    padding: 10px 20px;
-    border-radius: 5px;
-    border: 1px solid black;
-    background-color: white;
+    padding: 12px 24px;
+    border-radius: 30px;
+    border: 2px solid #3E60C1;
+    background-color: #21635d;
+    color: #ffffff;
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
     cursor: pointer;
-    margin-right: 10px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
+button:hover {
+    background-color: #0e413c;
+    transform: translateY(-3px);
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.3);
+}
+
+button:active {
+    background-color: #2f6d6a;
+    transform: translateY(1px);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#reset-button {
+    margin-left: 5%;
+    width: 7%;  
+    border: 2px solid #607cc9;
+    background-color: rgb(98, 86, 202);
+}
+
+body{
+    background-color: #607cc9;
+    margin: 0;
+}
+
+h2{
+    font-size: 30px;
+}
+
+p{
+    font-size: 15px;
+}
